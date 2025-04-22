@@ -1,0 +1,5 @@
+# ninja log v6
+29	1732	7670422537257254	build.ninja	cc04ee5e512e8f06
+18	3936	7670419861169841	CMakeFiles/HR_Management_System.dir/main.cpp.obj	b42a2d1380859b43
+3937	4311	7670419900355524	HR_Management_System.exe	27920bb725937806
+228	512	7670418741320666	CMakeFiles/HR_Management_System.dir/option.cpp.obj	124179da09996cdd
