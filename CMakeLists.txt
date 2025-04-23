@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(HR_Management_System main.cpp
         option.cpp
-        Shamsiddin.cpp
+        finalVersion.cpp
 )
