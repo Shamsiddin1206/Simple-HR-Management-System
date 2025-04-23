@@ -61,8 +61,8 @@ build CMakeFiles/HR_Management_System.dir/option.cpp.obj: CXX_COMPILER__HR_Manag
   OBJECT_DIR = CMakeFiles\HR_Management_System.dir
   OBJECT_FILE_DIR = CMakeFiles\HR_Management_System.dir
 
-build CMakeFiles/HR_Management_System.dir/ApplicanScreen.cpp.obj: CXX_COMPILER__HR_Management_System_unscanned_Debug C$:/Users/takhi/CLionProjects/HR$ Management$ System/ApplicanScreen.cpp || cmake_object_order_depends_target_HR_Management_System
-  DEP_FILE = CMakeFiles\HR_Management_System.dir\ApplicanScreen.cpp.obj.d
+build CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj: CXX_COMPILER__HR_Management_System_unscanned_Debug C$:/Users/takhi/CLionProjects/HR$ Management$ System/Shamsiddin.cpp || cmake_object_order_depends_target_HR_Management_System
+  DEP_FILE = CMakeFiles\HR_Management_System.dir\Shamsiddin.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\HR_Management_System.dir
   OBJECT_FILE_DIR = CMakeFiles\HR_Management_System.dir
@@ -75,7 +75,7 @@ build CMakeFiles/HR_Management_System.dir/ApplicanScreen.cpp.obj: CXX_COMPILER__
 #############################################
 # Link the executable HR_Management_System.exe
 
-build HR_Management_System.exe: CXX_EXECUTABLE_LINKER__HR_Management_System_Debug CMakeFiles/HR_Management_System.dir/main.cpp.obj CMakeFiles/HR_Management_System.dir/option.cpp.obj CMakeFiles/HR_Management_System.dir/ApplicanScreen.cpp.obj
+build HR_Management_System.exe: CXX_EXECUTABLE_LINKER__HR_Management_System_Debug CMakeFiles/HR_Management_System.dir/main.cpp.obj CMakeFiles/HR_Management_System.dir/option.cpp.obj CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\HR_Management_System.dir

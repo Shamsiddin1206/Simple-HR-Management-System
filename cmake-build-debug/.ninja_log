@@ -1,5 +1,21 @@
 # ninja log v6
-29	1732	7670422537257254	build.ninja	cc04ee5e512e8f06
-18	3936	7670419861169841	CMakeFiles/HR_Management_System.dir/main.cpp.obj	b42a2d1380859b43
-3937	4311	7670419900355524	HR_Management_System.exe	27920bb725937806
+174	8278	7670846215776312	CMakeFiles/HR_Management_System.dir/main.cpp.obj	b42a2d1380859b43
+13	1325	7670856562575720	build.ninja	cc04ee5e512e8f06
+8279	9014	7670846296825516	HR_Management_System.exe	27920bb725937806
 228	512	7670418741320666	CMakeFiles/HR_Management_System.dir/option.cpp.obj	124179da09996cdd
+31	297	7670874972896817	CMakeFiles/HR_Management_System.dir/main.cpp.obj	b42a2d1380859b43
+28	1715	7670875301607934	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+39	1763	7670875491457428	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+1764	2056	7670875508705878	HR_Management_System.exe	10951d004805a69d
+172	3802	7671039954033675	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+3803	4580	7671039990344218	HR_Management_System.exe	10951d004805a69d
+15	4631	7671040716374187	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+4632	5292	7671040762547212	HR_Management_System.exe	10951d004805a69d
+40	2233	7671041567629634	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+2235	2524	7671041589578923	HR_Management_System.exe	10951d004805a69d
+30	1931	7671043244641504	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+1933	2206	7671043263673249	HR_Management_System.exe	10951d004805a69d
+27	1937	7671043754226076	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+1939	2191	7671043773339215	HR_Management_System.exe	10951d004805a69d
+32	1891	7671044314655840	CMakeFiles/HR_Management_System.dir/Shamsiddin.cpp.obj	6e5d73e5088908cd
+1894	2158	7671044333278306	HR_Management_System.exe	10951d004805a69d
