@@ -1,350 +1,480 @@
-// //
-// // Created by takhi on 4/22/2025.
-// //
-// #include <iostream>
-// #include <string>
-// #include <fstream>
-// #include <limits>
-//
-// using namespace std;
-//
-// // Constants
-// const int MAX_EMPLOYEES = 100;
-// const string FILE_NAME = "employee_data.txt";
-//
-// // Function prototypes
-// void displayMenu();
-// void hireEmployee(int employeeIds[], string employeeNames[], int employeeAges[],
-//                  string employeeDepartments[], int& employeeCount, int& vacancies);
-// void fireEmployee(int employeeIds[], string employeeNames[], int employeeAges[],
-//                  string employeeDepartments[], int& employeeCount, int& vacancies);
-// void displayAllEmployees(const int employeeIds[], const string employeeNames[],
-//                         const int employeeAges[], const string employeeDepartments[],
-//                         int employeeCount);
-// void searchEmployeeById(const int employeeIds[], const string employeeNames[],
-//                        const int employeeAges[], const string employeeDepartments[],
-//                        int employeeCount);
-// bool isIdUnique(const int employeeIds[], int employeeCount, int id);
-// int findEmployeeIndex(const int employeeIds[], int employeeCount, int id);
-// void saveToFile(const int employeeIds[], const string employeeNames[],
-//                const int employeeAges[], const string employeeDepartments[],
-//                int employeeCount, int vacancies);
-// bool loadFromFile(int employeeIds[], string employeeNames[], int employeeAges[],
-//                  string employeeDepartments[], int& employeeCount, int& vacancies);
-// void clearInputBuffer();
-//
-// int main() {
-//     // Parallel arrays to store employee data
-//     int employeeIds[MAX_EMPLOYEES];
-//     string employeeNames[MAX_EMPLOYEES];
-//     int employeeAges[MAX_EMPLOYEES];
-//     string employeeDepartments[MAX_EMPLOYEES];
-//
-//     int employeeCount = 0;
-//     int vacancies = 10; // Initial number of vacancies
-//     int choice;
-//
-//     // Try to load existing data
-//     if (loadFromFile(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount, vacancies)) {
-//         cout << "Employee data loaded successfully.\n";
-//     } else {
-//         cout << "No existing data found or error loading data. Starting with empty system.\n";
-//     }
-//
-//     do {
-//         displayMenu();
-//         cout << "Enter your choice: ";
-//
-//         // Input validation for menu choice
-//         while (!(cin >> choice) || choice < 0 || choice > 6) {
-//             cout << "Invalid choice. Please enter a number between 0 and 6: ";
-//             clearInputBuffer();
-//         }
-//
-//         switch (choice) {
-//             case 1:
-//                 hireEmployee(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount, vacancies);
-//                 break;
-//             case 2:
-//                 fireEmployee(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount, vacancies);
-//                 break;
-//             case 3:
-//                 displayAllEmployees(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount);
-//                 break;
-//             case 4:
-//                 searchEmployeeById(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount);
-//                 break;
-//             case 5:
-//                 cout << "Current vacancies: " << vacancies << endl;
-//                 break;
-//             case 6:
-//                 saveToFile(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount, vacancies);
-//                 break;
-//             case 0:
-//                 cout << "Exiting program. Saving data...\n";
-//                 saveToFile(employeeIds, employeeNames, employeeAges, employeeDepartments, employeeCount, vacancies);
-//                 cout << "Data saved. Goodbye!\n";
-//                 break;
-//             default:
-//                 cout << "Invalid choice. Please try again.\n";
-//         }
-//
-//         cout << "\nPress Enter to continue...";
-//         clearInputBuffer();
-//         cin.get();
-//
-//     } while (choice != 0);
-//
-//     return 0;
-// }
-//
-// void displayMenu() {
-//     cout << "\n===== HR MANAGEMENT SYSTEM =====\n";
-//     cout << "1. Hire Employee\n";
-//     cout << "2. Fire Employee\n";
-//     cout << "3. Display All Employees\n";
-//     cout << "4. Search Employee by ID\n";
-//     cout << "5. Check Vacancies\n";
-//     cout << "6. Save Data\n";
-//     cout << "0. Exit\n";
-//     cout << "================================\n";
-// }
-//
-// void hireEmployee(int employeeIds[], string employeeNames[], int employeeAges[],
-//                  string employeeDepartments[], int& employeeCount, int& vacancies) {
-//     if (vacancies <= 0) {
-//         cout << "Error: No vacancies available. Cannot hire new employees.\n";
-//         return;
-//     }
-//
-//     if (employeeCount >= MAX_EMPLOYEES) {
-//         cout << "Error: Maximum employee limit reached.\n";
-//         return;
-//     }
-//
-//     int id;
-//     string name;
-//     int age;
-//     string department;
-//
-//     cout << "\n--- Hire New Employee ---\n";
-//
-//     // Get and validate employee ID
-//     cout << "Enter Employee ID: ";
-//     while (!(cin >> id) || id <= 0) {
-//         cout << "Invalid ID. Please enter a positive number: ";
-//         clearInputBuffer();
-//     }
-//
-//     // Check if ID is unique
-//     if (!isIdUnique(employeeIds, employeeCount, id)) {
-//         cout << "Error: Employee ID already exists. Please use a unique ID.\n";
-//         return;
-//     }
-//
-//     clearInputBuffer();
-//
-//     // Get employee name
-//     cout << "Enter Employee Name: ";
-//     getline(cin, name);
-//
-//     // Get and validate employee age
-//     cout << "Enter Employee Age: ";
-//     while (!(cin >> age) || age < 18 || age > 65) {
-//         cout << "Invalid age. Please enter an age between 18 and 65: ";
-//         clearInputBuffer();
-//     }
-//
-//     clearInputBuffer();
-//
-//     // Get employee department
-//     cout << "Enter Employee Department: ";
-//     getline(cin, department);
-//
-//     // Add employee to arrays
-//     employeeIds[employeeCount] = id;
-//     employeeNames[employeeCount] = name;
-//     employeeAges[employeeCount] = age;
-//     employeeDepartments[employeeCount] = department;
-//
-//     employeeCount++;
-//     vacancies--;
-//
-//     cout << "Employee hired successfully. Remaining vacancies: " << vacancies << endl;
-// }
-//
-// void fireEmployee(int employeeIds[], string employeeNames[], int employeeAges[],
-//                  string employeeDepartments[], int& employeeCount, int& vacancies) {
-//     if (employeeCount == 0) {
-//         cout << "Error: No employees to fire.\n";
-//         return;
-//     }
-//
-//     int id;
-//     cout << "\n--- Fire Employee ---\n";
-//     cout << "Enter Employee ID to fire: ";
-//
-//     while (!(cin >> id)) {
-//         cout << "Invalid ID. Please enter a number: ";
-//         clearInputBuffer();
-//     }
-//
-//     int index = findEmployeeIndex(employeeIds, employeeCount, id);
-//
-//     if (index == -1) {
-//         cout << "Error: Employee with ID " << id << " not found.\n";
-//         return;
-//     }
-//
-//     cout << "Are you sure you want to fire " << employeeNames[index] << "? (y/n): ";
-//     clearInputBuffer();
-//     char confirm;
-//     cin >> confirm;
-//
-//     if (confirm == 'y' || confirm == 'Y') {
-//         // Shift all elements after the removed employee
-//         for (int i = index; i < employeeCount - 1; i++) {
-//             employeeIds[i] = employeeIds[i + 1];
-//             employeeNames[i] = employeeNames[i + 1];
-//             employeeAges[i] = employeeAges[i + 1];
-//             employeeDepartments[i] = employeeDepartments[i + 1];
-//         }
-//
-//         employeeCount--;
-//         vacancies++;
-//
-//         cout << "Employee fired successfully. Available vacancies: " << vacancies << endl;
-//     } else {
-//         cout << "Operation cancelled.\n";
-//     }
-// }
-//
-// void displayAllEmployees(const int employeeIds[], const string employeeNames[],
-//                         const int employeeAges[], const string employeeDepartments[],
-//                         int employeeCount) {
-//     if (employeeCount == 0) {
-//         cout << "No employees to display.\n";
-//         return;
-//     }
-//
-//     cout << "\n--- All Employees ---\n";
-//     cout << "ID\tName\t\tAge\tDepartment\n";
-//     cout << "----------------------------------------\n";
-//
-//     for (int i = 0; i < employeeCount; i++) {
-//         cout << employeeIds[i] << "\t"
-//              << employeeNames[i] << "\t\t"
-//              << employeeAges[i] << "\t"
-//              << employeeDepartments[i] << endl;
-//     }
-//
-//     cout << "----------------------------------------\n";
-//     cout << "Total Employees: " << employeeCount << endl;
-// }
-//
-// void searchEmployeeById(const int employeeIds[], const string employeeNames[],
-//                        const int employeeAges[], const string employeeDepartments[],
-//                        int employeeCount) {
-//     if (employeeCount == 0) {
-//         cout << "No employees in the system.\n";
-//         return;
-//     }
-//
-//     int id;
-//     cout << "\n--- Search Employee ---\n";
-//     cout << "Enter Employee ID: ";
-//
-//     while (!(cin >> id)) {
-//         cout << "Invalid ID. Please enter a number: ";
-//         clearInputBuffer();
-//     }
-//
-//     int index = findEmployeeIndex(employeeIds, employeeCount, id);
-//
-//     if (index == -1) {
-//         cout << "Employee with ID " << id << " not found.\n";
-//         return;
-//     }
-//
-//     cout << "\n--- Employee Details ---\n";
-//     cout << "ID: " << employeeIds[index] << endl;
-//     cout << "Name: " << employeeNames[index] << endl;
-//     cout << "Age: " << employeeAges[index] << endl;
-//     cout << "Department: " << employeeDepartments[index] << endl;
-// }
-//
-// bool isIdUnique(const int employeeIds[], int employeeCount, int id) {
-//     for (int i = 0; i < employeeCount; i++) {
-//         if (employeeIds[i] == id) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-//
-// int findEmployeeIndex(const int employeeIds[], int employeeCount, int id) {
-//     for (int i = 0; i < employeeCount; i++) {
-//         if (employeeIds[i] == id) {
-//             return i;
-//         }
-//     }
-//     return -1; // Not found
-// }
-//
-// void saveToFile(const int employeeIds[], const string employeeNames[],
-//                const int employeeAges[], const string employeeDepartments[],
-//                int employeeCount, int vacancies) {
-//     ofstream outFile(FILE_NAME);
-//
-//     if (!outFile) {
-//         cout << "Error: Unable to open file for writing.\n";
-//         return;
-//     }
-//
-//     // First line: number of employees and vacancies
-//     outFile << employeeCount << " " << vacancies << endl;
-//
-//     // Write each employee's data
-//     for (int i = 0; i < employeeCount; i++) {
-//         outFile << employeeIds[i] << endl;
-//         outFile << employeeNames[i] << endl;
-//         outFile << employeeAges[i] << endl;
-//         outFile << employeeDepartments[i] << endl;
-//     }
-//
-//     outFile.close();
-//     cout << "Data saved successfully.\n";
-// }
-//
-// bool loadFromFile(int employeeIds[], string employeeNames[], int employeeAges[],
-//                  string employeeDepartments[], int& employeeCount, int& vacancies) {
-//     ifstream inFile(FILE_NAME);
-//
-//     if (!inFile) {
-//         return false; // File doesn't exist or can't be opened
-//     }
-//
-//     // Read number of employees and vacancies
-//     inFile >> employeeCount >> vacancies;
-//     inFile.ignore(); // Ignore newline after reading numbers
-//
-//     // Read each employee's data
-//     for (int i = 0; i < employeeCount; i++) {
-//         inFile >> employeeIds[i];
-//         inFile.ignore();
-//
-//         getline(inFile, employeeNames[i]);
-//         inFile >> employeeAges[i];
-//         inFile.ignore();
-//
-//         getline(inFile, employeeDepartments[i]);
-//     }
-//
-//     inFile.close();
-//     return true;
-// }
-//
-// void clearInputBuffer() {
-//     cin.clear();
-//     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-// }
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
+
+struct Employee {
+    int id;
+    string name;
+    string position;
+    double salary;
+    int experience;
+};
+
+struct Vacancy {
+    int id;
+    string role;
+    double salary;
+    int experienceYear;
+};
+
+struct Applicant {
+    int id;
+    string name;
+    int yearOfExperience;
+    double estimatedSalary;
+    string position;
+    int vacancyID;
+};
+
+// Global variables for ID tracking
+int employeeID = 0;
+int vacancyID = 0;
+int applicantID = 0;
+
+// File names
+const string vacancyFile = "vacancies.txt";
+const string applicantFile = "applicants.txt";
+const string employeeFile = "employees.txt";
+
+// Function declarations
+void greeting();
+void HRSystem();
+void addVacancy();
+void listAllVacancies();
+void deleteVacancy();
+bool checkVacancy(int id);
+Vacancy getVacancyByID(int vID);
+void removeVacancy(int vID);
+
+void applicantSystem();
+vector<Applicant> getApplicantsOfVacancy(int vID);
+void listApplicants(const vector<Applicant>& applications);
+bool checkApplicant(int aID, const vector<Applicant>& applications);
+Applicant getApplicantByID(int aID);
+
+void listAllEmployees();
+void saveVacancies();
+void loadVacancies();
+void saveApplicants();
+void loadApplicants();
+void saveEmployees();
+void loadEmployees();
+
+vector<Vacancy> vacanciesList;
+vector<Applicant> applicantsList;
+vector<Employee> employees;
+
+// Main function
+int main() {
+    // Load data from files
+    loadVacancies();
+    loadApplicants();
+    loadEmployees();
+
+    greeting();
+}
+
+// Greeting function
+void greeting() {
+    cout << "\n===== Homepage =====\n";
+    cout << "1. Apply for a job\n";
+    cout << "2. Login to HR Account\n";
+    cout << "0. Exit\n";
+    cout << "================================\n";
+
+    int n;
+    cout << "Enter your choice: " << endl;
+    cin >> n;
+    switch (n) {
+        case 1:
+            applicantSystem();
+            break;
+        case 2:
+            HRSystem();
+            break;
+        case 0:
+            break;
+        default:
+            cout << "Invalid Input! Try again\n";
+            greeting();
+            break;
+    }
+}
+
+// HR System for HR management
+void HRSystem() {
+    bool state = true;
+    while (state) {
+        cout << "\n===== HR MANAGEMENT SYSTEM =====\n";
+        cout << "1. Open new vacancy\n";
+        cout << "2. Check Vacancies\n";
+        cout << "3. Delete vacancy\n";
+        cout << "4. Hire an employee\n";
+        cout << "5. List All employees\n";
+        cout << "0. Exit\n";
+        cout << "================================\n";
+        int choice;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                addVacancy();
+                break;
+            case 2:
+                if (vacanciesList.empty()) {
+                    cout << "No vacancies found\n";
+                } else {
+                    listAllVacancies();
+                }
+                break;
+            case 3:
+                deleteVacancy();
+                break;
+            case 4:
+                if (vacanciesList.empty()) {
+                    cout << "Currently no open vacancies. You cannot hire.\n";
+                    break;
+                }
+                cout << "\n===== Vacancies List =====\n";
+                listAllVacancies();
+                cout << "================================\n";
+                int vID;
+                cout << "Which vacancy? (ID) ";
+                cin >> vID;
+
+                if (checkVacancy(vID)) {
+                    vector<Applicant> applications = getApplicantsOfVacancy(vID);
+                    if (applications.empty()) {
+                        cout << "No applications received!\n";
+                        break;
+                    }
+                    listApplicants(applications);
+                    int aID;
+                    cout << "Choose a candidate (ID): ";
+                    cin >> aID;
+                    if (checkApplicant(aID, applications)) {
+                        Applicant applicant = getApplicantByID(aID);
+                        Employee employee;
+                        employeeID++;
+                        employee.id = employeeID;
+                        employee.name = applicant.name;
+                        employee.salary = applicant.estimatedSalary;
+                        employee.position = applicant.position;
+                        employee.experience = applicant.yearOfExperience;
+                        employees.push_back(employee);
+                        cout << "Successfully hired!\n";
+                        removeVacancy(vID);
+                        saveEmployees();
+                        break;
+                    }
+                } else {
+                    cout << "No vacancy found. Enter a valid ID!\n";
+                    break;
+                }
+            case 5:
+                listAllEmployees();
+                break;
+            case 0:
+                state = false;
+                greeting();
+                break;
+            default:
+                cout << "Invalid Input\n";
+        }
+    }
+}
+
+// Applicant System
+void applicantSystem() {
+    bool state = true;
+    while (state) {
+        cout << "\n===== Vacancies List =====\n";
+        if (vacanciesList.empty()) {
+            cout << "Currently no open vacancies!\n";
+            state = false;
+            greeting();
+        }
+        listAllVacancies();
+        cout << "================================\n";
+        cout << "1. Apply\n";
+        cout << "0. Exit\n";
+        cout << "================================\n";
+
+        int choice;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                cin.ignore();
+                int vID;
+                cout << "Vacancy ID: ";
+                cin >> vID;
+
+                if (!checkVacancy(vID)) {
+                    cout << "No vacancy found. Try Again\n";
+                    break;
+                } else {
+                    const Vacancy v = getVacancyByID(vID);
+                    Applicant applicant;
+                    applicantID++;
+                    applicant.id = applicantID;
+                    cin.ignore();
+                    cout << "Name: ";
+                    getline(cin, applicant.name);
+                    cout << "Estimated Salary: ";
+                    cin >> applicant.estimatedSalary;
+                    cout << "Years of experience: ";
+                    cin >> applicant.yearOfExperience;
+                    applicant.vacancyID = vID;
+                    applicant.position = v.role;
+                    if (!applicant.name.empty() && applicant.estimatedSalary >= 0 && applicant.yearOfExperience >= 0) {
+                        applicantsList.push_back(applicant);
+                        saveApplicants();
+                        cout << "Your application was sent!\n";
+                    } else {
+                        cout << "You need to answer all questions. Try again later.\n";
+                    }
+                    break;
+                }
+            case 0:
+                state = false;
+                cout << endl;
+                greeting();
+                break;
+            default:
+                cout << "Invalid Input!\n";
+        }
+    }
+}
+
+// List all vacancies
+void listAllVacancies() {
+    for (const auto& v : vacanciesList) {
+        cout << "ID: " << v.id
+             << "; Role: " << v.role
+             << "; Experience Years: " << v.experienceYear
+             << "; Salary: " << v.salary << endl;
+    }
+}
+
+// Add a new vacancy
+void addVacancy() {
+    cin.ignore();
+    Vacancy vacancy;
+    vacancyID++;
+    vacancy.id = vacancyID;
+    cout << "Role: ";
+    getline(cin, vacancy.role);
+    cout << "Salary: ";
+    cin >> vacancy.salary;
+    cout << "Year of Experience: ";
+    cin >> vacancy.experienceYear;
+
+    if (vacancy.experienceYear >= 0 && vacancy.salary >= 0 && !vacancy.role.empty()) {
+        vacanciesList.push_back(vacancy);
+        saveVacancies();
+        cout << "\nSuccessfully created vacancy!\n";
+    } else {
+        cout << "\nAll questions should be answered! Try again\n";
+    }
+}
+
+// Delete a vacancy
+void deleteVacancy() {
+    int id;
+    bool deleted = false;
+    cout << "ID: ";
+    cin >> id;
+    for (auto it = vacanciesList.begin(); it != vacanciesList.end(); ++it) {
+        if (it->id == id) {
+            vacanciesList.erase(it);
+            deleted = true;
+            break;
+        }
+    }
+    if (deleted) {
+        cout << "Removed successfully!\n";
+        saveVacancies();
+    } else {
+        cout << "Could not find vacancy. Try again later.\n";
+    }
+}
+
+// Check if a vacancy exists by ID
+bool checkVacancy(int vID) {
+    for (auto& i : vacanciesList) {
+        if (i.id == vID) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Get a vacancy by ID
+Vacancy getVacancyByID(int vID) {
+    for (auto& i : vacanciesList) {
+        if (i.id == vID) {
+            return i;
+        }
+    }
+    return Vacancy();  // Return default object if not found
+}
+
+// Remove a vacancy by ID
+void removeVacancy(int vID) {
+    for (auto it = vacanciesList.begin(); it != vacanciesList.end(); ++it) {
+        if (it->id == vID) {
+            vacanciesList.erase(it);
+            cout << "Successfully closed the vacancy!\n";
+            saveVacancies();
+            return;
+        }
+    }
+}
+
+// Get applicants of a specific vacancy
+vector<Applicant> getApplicantsOfVacancy(int vID) {
+    vector<Applicant> applications;
+    for (const auto& i : applicantsList) {
+        if (i.vacancyID == vID) {
+            applications.push_back(i);
+        }
+    }
+    return applications;
+}
+
+// List all applicants for a vacancy
+void listApplicants(const vector<Applicant>& applications) {
+    cout << "\n===== Applicants List =====\n";
+    for (const auto& i : applications) {
+        cout << "ID: " << i.id << "; Name: " << i.name << "; Estimated Salary: " << i.estimatedSalary
+             << "; Experience: " << i.yearOfExperience << " years\n";
+    }
+}
+
+// Check if an applicant exists by ID
+bool checkApplicant(int aID, const vector<Applicant>& applications) {
+    for (const auto& i : applications) {
+        if (i.id == aID) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Get an applicant by ID
+Applicant getApplicantByID(int aID) {
+    for (auto& i : applicantsList) {
+        if (i.id == aID) {
+            return i;
+        }
+    }
+    return Applicant();
+}
+
+// List all employees
+void listAllEmployees() {
+    cout << "\n===== Employees List =====\n";
+    for (const auto& e : employees) {
+        cout << "ID: " << e.id << "; Name: " << e.name << "; Position: " << e.position
+             << "; Salary: " << e.salary << "; Experience: " << e.experience << endl;
+    }
+}
+
+// Load vacancies from file
+void loadVacancies() {
+    ifstream file(vacancyFile);
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        Vacancy vacancy;
+        string token;
+        getline(ss, token, ','); vacancy.id = stoi(token);
+        getline(ss, vacancy.role, ',');
+        getline(ss, token, ','); vacancy.salary = stod(token);
+        getline(ss, token, ','); vacancy.experienceYear = stoi(token);
+        vacanciesList.push_back(vacancy);
+    }
+    file.close();
+}
+
+// Load applicants from file
+void loadApplicants() {
+    ifstream file(applicantFile);
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        Applicant applicant;
+        string token;
+        getline(ss, token, ','); applicant.id = stoi(token);
+        getline(ss, applicant.name, ',');
+        getline(ss, token, ','); applicant.yearOfExperience = stoi(token);
+        getline(ss, token, ','); applicant.estimatedSalary = stod(token);
+        getline(ss, applicant.position, ',');
+        getline(ss, token, ','); applicant.vacancyID = stoi(token);
+        applicantsList.push_back(applicant);
+    }
+    file.close();
+}
+
+// Load employees from file
+void loadEmployees() {
+    ifstream file(employeeFile);
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        Employee employee;
+        string token;
+        getline(ss, token, ','); employee.id = stoi(token);
+        getline(ss, employee.name, ',');
+        getline(ss, employee.position, ',');
+        getline(ss, token, ','); employee.salary = stod(token);
+        getline(ss, token, ','); employee.experience = stoi(token);
+        employees.push_back(employee);
+    }
+    file.close();
+}
+
+// Save vacancies to file
+void saveVacancies() {
+    ofstream file(vacancyFile);
+    for (const auto& v : vacanciesList) {
+        file << v.id << ","
+             << v.role << ","
+             << v.salary << ","
+             << v.experienceYear << endl;
+    }
+    file.close();
+}
+
+// Save applicants to file
+void saveApplicants() {
+    ofstream file(applicantFile);
+    for (const auto& a : applicantsList) {
+        file << a.id << ","
+             << a.name << ","
+             << a.yearOfExperience << ","
+             << a.estimatedSalary << ","
+             << a.position << ","
+             << a.vacancyID << endl;
+    }
+    file.close();
+}
+
+// Save employees to file
+void saveEmployees() {
+    ofstream file(employeeFile);
+    for (const auto& e : employees) {
+        file << e.id << ","
+             << e.name << ","
+             << e.position << ","
+             << e.salary << ","
+             << e.experience << endl;
+    }
+    file.close();
+}
