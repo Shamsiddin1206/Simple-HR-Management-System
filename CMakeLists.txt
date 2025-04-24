@@ -4,6 +4,6 @@ project(HR_Management_System)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(HR_Management_System main.cpp
-        option.cpp
-        finalVersion.cpp
+        finalVerdict.cpp
+        tempOption.cpp
 )
